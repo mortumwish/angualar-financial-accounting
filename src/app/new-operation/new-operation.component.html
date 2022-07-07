@@ -7,7 +7,8 @@
 <br>
 
 <label for="sum">Sum: </label>
-<input type="number" id="sum" #sum placeholder="Sum"/> <span class="error-message" *ngIf="sum.valueAsNumber < 0">The sum cannot be negative</span>
+<input type="number" ngModel pattern="^[1-9][0-9]*$" id="sum" #sum placeholder="Sum"/>
+<span class="error-message" *ngIf="sum.valueAsNumber <= 0">The sum cannot be negative</span>
 
 <br>
 
@@ -18,8 +19,6 @@
 
 <button type="button" title="add-operation" (click)="add(comment.value, sum.valueAsNumber, type.value)">Add operation
 </button>
-
-
 
 
 <br><br>

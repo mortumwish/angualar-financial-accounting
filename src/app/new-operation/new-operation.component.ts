@@ -9,6 +9,7 @@ import {Operation} from "../operation-interface";
 })
 export class NewOperationComponent implements OnInit {
   operation: Operation = {} as Operation;
+
   constructor(public operationService: OperationService) {
   }
 
@@ -19,9 +20,16 @@ export class NewOperationComponent implements OnInit {
     if (sum <= 0) {
       return;
     }
+    if (isNaN(sum)){
+      return;
+    }
 
     this.operation = {id: this.operationService.operations.length, sum: sum, type: type, comment: comment};
     this.operationService.add(this.operation);
+  }
+
+  errorHandler(){
+    console.log('жопа бля')
   }
 
 }
