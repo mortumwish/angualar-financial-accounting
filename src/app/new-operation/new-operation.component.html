@@ -1,0 +1,33 @@
+<span>Type: </span>
+<select #type>
+  <option>replenishment</option>
+  <option>spending</option>
+</select>
+
+<br>
+
+<label for="sum">Sum: </label>
+<input type="number" id="sum" #sum placeholder="Sum"/> <span class="error-message" *ngIf="sum.valueAsNumber < 0">The sum cannot be negative</span>
+
+<br>
+
+<label for="comment">Comment: </label>
+<input type="text" id="comment" #comment placeholder="Comment"/>
+
+<br>
+
+<button type="button" title="add-operation" (click)="add(comment.value, sum.valueAsNumber, type.value)">Add operation
+</button>
+
+
+
+
+<br><br>
+<span>Balance: {{operationService.balance}}</span>
+<br><br>
+<span *ngFor="let operation of operationService.operations">
+  Id: {{operation.id}}<br>
+  Type: {{operation.type}}<br>
+  Sum: {{operation.sum}}<br>
+  Comment: {{operation.comment}}<br><br>
+</span>

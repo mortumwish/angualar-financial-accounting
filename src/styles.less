@@ -1,1 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
+*{
+  font-family: "Times New Roman";
+  font-size: 20px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  header{
+    height: 40px;
+    width: 1000px;
+    margin-bottom: 20px;
+    .wrapper{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .logo{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        span{
+          margin-left: 10px;
+        }
+      }
+      nav{
+        width: 400px;
+        display: flex;
+        justify-content: space-between;
+        a{
+          text-decoration-line: none;
+          color: black;
+        }
+        a:hover{
+          text-shadow: 0.3px 0 0 black;
+        }
+        a:active{
+          color: darkgrey;
+        }
+        .active{
+          text-shadow: 0.3px 0 0 black;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  main{
+    width: 1000px;
+  }
+  footer{
+    width: 1000px;
+  }
+}

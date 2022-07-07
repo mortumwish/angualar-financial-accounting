@@ -1,0 +1,8 @@
+<span>Balance: {{operationService.balance}}</span>
+<br><br>
+<span *ngFor="let operation of operationService.operations">
+  Id: {{operation.id}}<br>
+  Type: {{operation.type}}<br>
+  Sum: {{operation.sum}}<br>
+  Comment: {{operation.comment}}<br><br>
+</span>
