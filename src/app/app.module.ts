@@ -7,13 +7,15 @@ import { HistoryComponent } from './history/history.component';
 import { NewOperationComponent } from './new-operation/new-operation.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import {FormsModule} from "@angular/forms";
+import { SnackbarComponent } from './snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HistoryComponent,
     NewOperationComponent,
-    WelcomePageComponent
+    WelcomePageComponent,
+    SnackbarComponent
   ],
   imports: [
     BrowserModule,
