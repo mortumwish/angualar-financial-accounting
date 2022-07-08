@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {OperationService} from "../operation.service";
 import {Operation} from "../operation-interface";
 import {ErrorHandlerService} from "../error-handler.service";
-import {SnackbarComponent} from "../snackbar/snackbar.component";
 
 @Component({
   selector: 'app-new-operation',
@@ -11,7 +10,8 @@ import {SnackbarComponent} from "../snackbar/snackbar.component";
 })
 export class NewOperationComponent implements OnInit {
   operation: Operation = {} as Operation;
-  constructor(public operationService: OperationService, public errorService: ErrorHandlerService, public qwe: SnackbarComponent) {
+
+  constructor(public operationService: OperationService, public errorService: ErrorHandlerService) {
   }
 
   ngOnInit(): void {
@@ -19,15 +19,17 @@ export class NewOperationComponent implements OnInit {
 
   add(comment: string, sum: number, type: string) {
     if (sum <= 0) {
-      this.errorService.errorHandler('<=0');
+      this.errorService.errorHandler('Invalid value. The sum cannot be negative or 0.');
       return;
-    }
-    if (isNaN(sum)) {
+    } else if (isNaN(sum)) {
+      this.errorService.errorHandler('Invalid value.');
       return;
+    } else {
+      this.errorService.errorHandler('Success operation.');
+      this.operation = {id: this.operationService.operations.length, sum: sum, type: type, comment: comment};
+      this.operationService.add(this.operation);
     }
 
-    this.operation = {id: this.operationService.operations.length, sum: sum, type: type, comment: comment};
-    this.operationService.add(this.operation);
+
   }
-
 }
