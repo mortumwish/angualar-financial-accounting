@@ -1,8 +1,34 @@
-<span>Balance: {{operationService.balance}}</span>
-<br><br>
-<span *ngFor="let operation of operationService.operations">
-  Id: {{operation.id}}<br>
-  Type: {{operation.type}}<br>
-  Sum: {{operation.sum}}<br>
-  Comment: {{operation.comment}}<br><br>
-</span>
+<section>
+
+  <div class="title">
+    <h1>HISTORY OF OPERATION</h1>
+    <p>Here you can see the history of all your operations. =)</p>
+  </div>
+
+  <p *ngIf="operations.length === 0">You have not yet recorded any operations. =(</p>
+
+  <br>
+  <div *ngIf="operations.length !== 0" class="balance">
+    <p>Balance: <span style="color: #009100">{{balanceString}} <b>₽</b> </span></p>
+  </div>
+  <br>
+
+  <table *ngIf="operations.length !== 0">
+    <tr>
+      <th style="width: 10px">Id</th>
+      <th style="width: 200px">Type</th>
+      <th style="width: 150px; text-align: center">Sum</th>
+      <th style="width: 640px">Comment</th>
+    </tr>
+    <tr *ngFor="let operation of operations.reverse()">
+      <td>{{operation.id}}</td>
+      <td>{{operation.type}}</td>
+      <td *ngIf="operation.type === 'Replenishment'" style="color: green;text-align: center">{{operation.sumString}} <b>₽</b>
+      </td>
+      <td *ngIf="operation.type === 'Spending'" style="color: #d20000;text-align: center">{{operation.sumString}}
+        <b>₽</b></td>
+      <td>{{operation.comment}}</td>
+    </tr>
+  </table>
+
+</section>

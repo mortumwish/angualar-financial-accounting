@@ -1,0 +1,53 @@
+* {
+  font-family: Consolas, serif;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+section {
+  .inputs {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    .side-left {
+      display: flex;
+      flex-direction: column;
+
+      .mat-input-sum{
+        margin-bottom: 30px;
+      }
+
+      .mat-select {
+
+        width: 100% !important;
+      }
+
+      .add-button {
+        margin: 20px 0 0 0;
+      }
+    }
+
+    .mat-textarea {
+      width: 600px;
+    }
+  }
+}
+
+::ng-deep .mat-form-field-wrapper {
+  margin: 0 !important;
+  padding: 0;
+}
+
+:host ::ng-deep .mat-form-field-underline {
+  bottom: 0 !important;
+}

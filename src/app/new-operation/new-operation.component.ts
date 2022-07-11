@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OperationService} from "../operation.service";
-import {Operation} from "../operation-interface";
-import {ErrorHandlerService} from "../error-handler.service";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-new-operation',
@@ -9,27 +8,36 @@ import {ErrorHandlerService} from "../error-handler.service";
   styleUrls: ['./new-operation.component.less']
 })
 export class NewOperationComponent implements OnInit {
-  operation: Operation = {} as Operation;
+  options: string[] = ['Replenishment', 'Spending'];
 
-  constructor(public operationService: OperationService, public errorService: ErrorHandlerService) {
+  constructor(private operationService: OperationService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
+
   }
 
   add(comment: string, sum: number, type: string) {
-    if (sum <= 0) {
-      this.errorService.errorHandler('Invalid value. The sum cannot be negative or 0.');
-      return;
-    } else if (isNaN(sum)) {
-      this.errorService.errorHandler('Invalid value.');
+    if (type === 'Spending' && sum > this.operationService.balance) {
+      this.snackBar.open('Error. The balance cannot be less than spending.', '', {duration: 3000});
       return;
     } else {
-      this.errorService.errorHandler('Success operation.');
-      this.operation = {id: this.operationService.operations.length, sum: sum, type: type, comment: comment};
-      this.operationService.add(this.operation);
+      this.operationService.addOperation({
+        id: this.operationService.operations.length,
+        sum: sum,
+        sumString: this.operationService.formatSumString(sum.toString()),
+        type: type,
+        comment: this.checkForComment(comment)
+      });
     }
+  }
 
-
+  checkForComment(comment: string): string {
+    if (comment.length === 0) {
+      return 'No comment =('
+    } else {
+      return comment;
+    }
   }
 }
+

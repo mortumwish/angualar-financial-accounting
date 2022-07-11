@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OperationService} from "../operation.service";
+import {Operation} from "../operation-interface";
 
 @Component({
   selector: 'app-history',
@@ -8,10 +9,21 @@ import {OperationService} from "../operation.service";
 })
 export class HistoryComponent implements OnInit {
 
-  constructor(public operationService: OperationService) {
+  operations: Operation[] = [];
+  balanceString: string = '';
+  balance: number = 0;
+
+  constructor(private operationService: OperationService) {
   }
 
   ngOnInit(): void {
+    this.getOperations();
+  }
+
+  getOperations(){
+    this.operations = this.operationService.operations;
+    this.balance = this.operationService.balance;
+    this.balanceString = this.operationService.formatSumString(this.operationService.balance.toFixed(2).toString());
   }
 
 }

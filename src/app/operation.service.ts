@@ -1,26 +1,32 @@
 import {Injectable} from '@angular/core';
 import {Operation} from "./operation-interface";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OperationService {
+
   operations: Operation[] = [];
   balance: number = 0;
 
-  constructor() {
+
+  constructor(private snackBar: MatSnackBar) {
   }
 
-  add(operation: Operation) {
-    if (operation.type === 'spending' && operation.sum > this.balance){
-      return;
-    }
-    operation.id = this.operations.length+1;
+  addOperation(operation: Operation) {
+    operation.id = this.operations.length + 1;
     this.operations.push(operation);
-    if (operation.type === 'replenishment') {
-      this.balance = this.balance + parseInt(String(operation.sum));
+    this.snackBar.open('Success operation.', '', {duration: 3000});
+    if (operation.type === 'Replenishment') {
+      this.balance = this.balance + parseFloat(String(operation.sum));
     } else {
-      this.balance = this.balance - parseInt(String(operation.sum));
+      this.balance = this.balance - parseFloat(String(operation.sum));
     }
   }
+
+  formatSumString(sumString: string): string{
+    return sumString.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+  }
+
 }

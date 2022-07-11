@@ -1,32 +1,40 @@
-<span>Type: </span>
-<select #type>
-  <option>replenishment</option>
-  <option>spending</option>
-</select>
+<section>
+  <div class="title">
+    <h1>NEW OPERATION</h1>
+    <p>Please enter data for the operation: amount (required), comment (optional) and select the type of operation
+      (required).</p>
+  </div>
 
-<br>
+  <div class="inputs">
 
-<label for="sum">Sum: </label>
-<input type="number" ngModel pattern="^[1-9][0-9]*$" id="sum" #sum placeholder="Sum"/>
+    <div class="side-left">
+      <mat-form-field class="mat-input-sum" style="height: 75px; width: 300px" appearance="fill">
+        <mat-label>Sum</mat-label>
+        <input matInput #sum='ngModel' required type="number"
+               ngModel pattern="^[0-9]*\.?[0-9]{0,2}$" step="0.01"
+               onfocusout=" if (this.value !== '') {this.value = Number(this.value)} ">
+        <!--onfocusout - чтобы 001 превращалось в 1 и тд, если что-то введено-->
+      </mat-form-field>
 
-<br>
+      <mat-form-field class="mat-select" appearance="fill">
+        <mat-label>Type of operation</mat-label>
+        <mat-select #type required>
+          <mat-option [value]="'Replenishment'">Replenishment</mat-option>
+          <mat-option [value]="'Spending'">Spending</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-<label for="comment">Comment: </label>
-<input type="text" id="comment" #comment placeholder="Comment"/>
+      <button [disabled]="type.value == null || sum.value == ''||sum.invalid" type="button"
+              class="button add-button"
+              (click)="add(comment.value, sum.value, type.value)">Add operation
+      </button>
+    </div>
 
-<br>
+    <mat-form-field class="mat-textarea" appearance="fill">
+      <mat-label>Comment</mat-label>
+      <textarea style="max-height: 300px;min-height: 132px;" #comment matInput
+                placeholder="Write a description for your operation."></textarea>
+    </mat-form-field>
 
-<button type="button" title="add-operation" (click)="add(comment.value, sum.valueAsNumber, type.value)">Add operation
-</button>
-
-<br><br>
-<span>Balance: {{operationService.balance}}</span>
-<br><br>
-<span *ngFor="let operation of operationService.operations">
-  Id: {{operation.id}}<br>
-  Type: {{operation.type}}<br>
-  Sum: {{operation.sum}}<br>
-  Comment: {{operation.comment}}<br><br>
-</span>
-
-<app-snackbar *ngIf="errorService.message !== ''"></app-snackbar>
+  </div>
+</section>
