@@ -20,7 +20,7 @@
       <th style="width: 150px; text-align: center">Sum</th>
       <th style="width: 640px">Comment</th>
     </tr>
-    <tr *ngFor="let operation of operations.reverse()">
+    <tr *ngFor="let operation of operations.slice().reverse()">
       <td>{{operation.id}}</td>
       <td>{{operation.type}}</td>
       <td *ngIf="operation.type === 'Replenishment'" style="color: green;text-align: center">{{operation.sumString}} <b>₽</b>
