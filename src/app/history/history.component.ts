@@ -25,5 +25,4 @@ export class HistoryComponent implements OnInit {
     this.balance = this.operationService.balance;
     this.balanceString = this.operationService.formatSumString(this.operationService.balance.toFixed(2).toString());
   }
-
 }
